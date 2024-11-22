@@ -59,3 +59,21 @@ FROM PortfolioProject..CovidDeaths
 WHERE continent is NOT NULL
 -- GROUP BY date
 ORDER BY 1, 2
+
+-- USE CTE
+WITH PopvsVac (Continent, Location, Date, Population, New_Vaccinations, RollingPeopleVaccinated)
+AS
+(
+-- Looking at total population vs vaccinations
+SELECT dea.continent, dea.[location], dea.[date], dea.population, vac.new_vaccinations
+, SUM(CAST(vac.new_vaccinations as int)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) AS RollingPeopleVaccinated
+--, (RollingPeopleVaccinated/population)*100
+FROM PortfolioProject..CovidDeaths dea
+JOIN PortfolioProject..CovidVaccinations vac
+    ON dea.[location] = vac.[location]
+    AND dea.[date] = vac.[date]
+WHERE dea.continent is NOT NULL
+-- ORDER BY 2, 3
+)
+SELECT *, (RollingPeopleVaccinated/Population)*100
+FROM PopvsVac
