@@ -29,18 +29,18 @@ WHERE continent is NOT NULL
 GROUP BY location, population
 ORDER BY PercentPopulationInfected DESC
 
--- LET'S BREAK THINGS DOWN BY CONTINENT
-SELECT continent, MAX(CAST(total_deaths as int)) as TotalDeathCount
-FROM PortfolioProject..CovidDeaths
--- WHERE [location] like '%states%'
-WHERE continent is NOT NULL
-GROUP BY continent
-ORDER BY TotalDeathCount DESC
-
 -- Showing countries with the highest death count per population
 SELECT [location], MAX(CAST(total_deaths as int)) as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
 -- WHERE [location] like '%states%'
 WHERE continent is NOT NULL
 GROUP BY location
+ORDER BY TotalDeathCount DESC
+
+-- LET'S BREAK THINGS DOWN BY CONTINENT
+SELECT [location], MAX(CAST(total_deaths as int)) as TotalDeathCount
+FROM PortfolioProject..CovidDeaths
+-- WHERE [location] like '%states%'
+WHERE continent is NOT NULL
+GROUP BY [location]
 ORDER BY TotalDeathCount DESC
