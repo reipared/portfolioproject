@@ -53,8 +53,9 @@ GROUP BY [continent]
 ORDER BY TotalDeathCount DESC
 
 -- GLOBAL NUMBERS
-SELECT [date], total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
+SELECT SUM(new_cases) as total_cases, SUM(CAST(new_deaths as int)) as total_deaths, SUM(CAST(new_deaths as int))/SUM(new_cases)*100 as DeathPercentage
 FROM PortfolioProject..CovidDeaths
 -- WHERE [location] like '%states%'
 WHERE continent is NOT NULL
+-- GROUP BY date
 ORDER BY 1, 2
