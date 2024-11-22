@@ -51,3 +51,10 @@ FROM PortfolioProject..CovidDeaths
 WHERE continent is NOT NULL
 GROUP BY [continent]
 ORDER BY TotalDeathCount DESC
+
+-- GLOBAL NUMBERS
+SELECT [date], total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
+FROM PortfolioProject..CovidDeaths
+-- WHERE [location] like '%states%'
+WHERE continent is NOT NULL
+ORDER BY 1, 2
