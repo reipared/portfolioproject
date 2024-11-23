@@ -95,3 +95,23 @@ SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1)
 
 SELECT *
 FROM PortfolioProject..NashvilleHousing
+
+-- Change Y and N to Yes and No in "Sold as Vacant" field
+
+SELECT DISTINCT(SoldAsVacant), COUNT(SoldAsVacant)
+FROM PortfolioProject..NashvilleHousing
+GROUP BY SoldAsVacant
+ORDER BY 2
+
+SELECT SoldAsVacant
+, CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
+        WHEN SoldAsVacant = 'N' THEN 'No'
+        ELSE SoldAsVacant
+        END
+FROM PortfolioProject..NashvilleHousing
+
+UPDATE PortfolioProject..NashvilleHousing
+SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
+        WHEN SoldAsVacant = 'N' THEN 'No'
+        ELSE SoldAsVacant
+        END
