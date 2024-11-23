@@ -135,5 +135,13 @@ SELECT *
 FROM RowNumCTE
 WHERE row_num > 1
 
+-- Delete Unused Columns
+
 SELECT *
 FROM PortfolioProject..NashvilleHousing
+
+ALTER TABLE PortfolioProject..NashvilleHousing
+DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress
+
+ALTER TABLE PortfolioProject..NashvilleHousing
+DROP COLUMN SaleDate
