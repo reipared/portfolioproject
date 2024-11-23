@@ -115,3 +115,25 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
         WHEN SoldAsVacant = 'N' THEN 'No'
         ELSE SoldAsVacant
         END
+
+-- Remove Duplicates
+
+WITH RowNumCTE AS (
+SELECT *,
+    ROW_NUMBER() OVER (
+        PARTITION BY ParcelID,
+                    PropertyAddress,
+                    SalePrice,
+                    SaleDate,
+                    LegalReference
+                    ORDER BY UniqueID
+    ) row_num
+FROM PortfolioProject..NashvilleHousing
+--ORDER BY ParcelID
+)
+SELECT *
+FROM RowNumCTE
+WHERE row_num > 1
+
+SELECT *
+FROM PortfolioProject..NashvilleHousing
