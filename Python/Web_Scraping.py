@@ -1,5 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
+
 url = 'https://www.scrapethissite.com/pages/forms/'
 
-requests.get(url)
+page = requests.get(url)
+
+soup = BeautifulSoup(page.text, 'html')
+
+# print(soup)
+print(soup.prettify())
