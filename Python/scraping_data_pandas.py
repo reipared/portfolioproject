@@ -25,7 +25,6 @@ column_data = table.find_all('tr')
 for row in column_data[1:]:
     row_data = row.find_all('td')
     individual_row_data = [data.text.strip() for data in row_data]
-
     length = len(df)
     df.loc[length] = individual_row_data
 
